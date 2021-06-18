@@ -75,19 +75,44 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
+const TodoCreate = ({text, onChange, onCreate}) => {
+  
 
-function TodoCreate({onAddTodo}) {
+// const TodoCreate = ({onAddTodo}) => {
     const [open, setOpen] = useState(false);
     
     const onToggle = () => setOpen(!open);
+    
+//     // // ㅁㄴㅇㄻㅇㄹ
+//     const [newTodoItem, setNewTodoItem] = useState({
+//         text:''
+//       });
+//     // const {text} = newTodoItem;
+//     const addTodoHandler = () => {
+//       onAddTodo(newTodoItem);
+//       setNewTodoItem('');
+//     };
 
-    const [newTodoItem, setNewTodoItem] = useState('');
+//     const onChange = e => {
+//         const {name, value} = e.target;
+//         setNewTodoItem({
+//           ...newTodoItem,
+//           [name]:value
+//         });
+//       }
+
+    
+
     return (
         <>
             {open && (
                 <InsertFormPositioner>
-                    <InsertForm>
-                        <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르시오." />
+                    <InsertForm onSubmit={onCreate}>
+                        <Input name="text" 
+                               onChange={onChange}
+                               value={text}
+                               autoFocus
+                               placeholder="할 일을 입력 후, Enter 를 누르시오." />
                     </InsertForm>
                 </InsertFormPositioner>
             )}

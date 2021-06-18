@@ -25,13 +25,13 @@ const TodoHeadBlock = styled.div`
         font-weight : bold;
     }
 `;
-function TodoHead(){
+function TodoHead({count}){
 
     return(
         <TodoHeadBlock>
             <h1> 2021년 n월 nn일 </h1>
             <div className="day"> n요일 </div>
-            <div className="tasks-left"> 할 일 n개 남음 </div>
+            <div className="tasks-left"> 할 일 {count} 남음 </div>
         </TodoHeadBlock>
     )
 }

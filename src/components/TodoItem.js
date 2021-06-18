@@ -66,7 +66,7 @@ function TodoItem({id, todo, onRemove, onToggle}) {
         <TodoItemBlock>
             <CheckCircle onClick = {()=> onToggle(todo.id)} done={todo.done}> {todo.done && <MdDone />} </CheckCircle>
             {/* done이 true일 경우, MdDone을 보여줌 */}
-            <Text done={todo.done}> {todo.text} </Text>
+            <Text done={todo.done}> {todo.textValue} </Text>
             <Remove onClick={()=> onRemove(todo.id)}>
                 <MdDelete />
             </Remove>
