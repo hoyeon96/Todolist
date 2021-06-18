@@ -55,6 +55,7 @@ function App() {
   };
 
   const onToggle = id => {
+    console.log("체크 상태 변경 실행");
     setTodos(
       todos.map(
         todo => todo.id === id?
