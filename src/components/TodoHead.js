@@ -27,22 +27,19 @@ const TodoHeadBlock = styled.div`
 `;
 function TodoHead({count}){
 
-    // const today = new Date();
-    // const dateString = today.toLocaleDateString('ko-KR', {
-    //     year: 'numeric',
-    //     month: 'long',
-    //     day: 'numeric'
-    // });
-    // const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
+    const today = new Date();
+    const dateString = today.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
     
     return(
         <TodoHeadBlock>
-            <h1> 2021년 6월 22일
-                {/* {dateString}  */}
-            </h1>
-            <div className="day"> 화요일
-                {/* {dayName}  */}
-            </div>
+            <h1> {dateString} </h1>
+            <div className="day"> {dayName} </div>
             <div className="tasks-left"> 할 일 {count} 남음 </div>
         </TodoHeadBlock>
     )
