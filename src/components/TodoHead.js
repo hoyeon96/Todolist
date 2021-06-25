@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import TodoList from './TodoList'
+import { useTodoState } from './TodoContext';
 
 const TodoHeadBlock = styled.div`
     padding-top : 48px;
@@ -26,6 +26,8 @@ const TodoHeadBlock = styled.div`
     }
 `;
 function TodoHead({count}){
+    const todos = useTodoState();
+    console.log(todos);
 
     const today = new Date();
     const dateString = today.toLocaleDateString('ko-KR', {
