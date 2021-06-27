@@ -13,7 +13,7 @@ body{
 }
 `;
 
-class TodoPage extends Component {
+export default class TodoPage extends Component {
   constructor(props) {
     super(props);
     console.log(props);
@@ -32,5 +32,3 @@ class TodoPage extends Component {
     )
   }
 }
-
-export default TodoPage;

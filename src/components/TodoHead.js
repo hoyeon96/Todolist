@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTodoState } from './TodoContext';
+import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
 
 const TodoHeadBlock = styled.div`
+    display: flex;
     padding-top : 48px;
     padding-left : 32px;
     padding-right : 32px;
     padding-bottom : 24px;
     border-bottom : 1px solid #e9ecef;
+    text-align : center;
     h1 {
         margin : 0;
         font-size : 36px;
@@ -25,10 +28,16 @@ const TodoHeadBlock = styled.div`
         font-weight : bold;
     }
 `;
-function TodoHead({count}){
+
+const ButtonBlock = styled.div`
+        padding: 24px;
+        font-size : 32px;
+        color: #20c997;
+`;
+
+function TodoHead(){
     const todos = useTodoState();
     console.log(todos);
-
     const today = new Date();
     const dateString = today.toLocaleDateString('ko-KR', {
         year: 'numeric',
@@ -37,12 +46,20 @@ function TodoHead({count}){
     });
 
     const dayName = today.toLocaleDateString('ko-KR', { weekday: 'long' });
-    
+    const count = todos.filter(todo => !todo.done).length;
     return(
         <TodoHeadBlock>
-            <h1> {dateString} </h1>
-            <div className="day"> {dayName} </div>
-            <div className="tasks-left"> 할 일 {count} 남음 </div>
+            <ButtonBlock>
+                <AiOutlineDoubleLeft />
+            </ButtonBlock>
+            <div>
+                <h1> {dateString} </h1>
+                <div className="day"> {dayName} </div>
+                <div className="tasks-left"> 할 일 {count}개 남음 </div>
+            </div>
+            <ButtonBlock>
+                <AiOutlineDoubleRight />
+            </ButtonBlock>
         </TodoHeadBlock>
     )
 }
