@@ -78,7 +78,7 @@ class DateHeader extends Component {
     state = {}
 
    
-    Days = (firstDayFormat, weekIndex) => {
+    Days = (firstDayFormat, Index) => {
       const _days = [];
    
       for (let i = 0; i < 7; i++) {
@@ -88,22 +88,19 @@ class DateHeader extends Component {
           yearMonthDayFormat: Day.format("YYYY-MM-DD"),
           getDay: Day.format('D'),
           isHolyDay: false,
-          weekIndex
+          Index
         });
       }
    
       return _days;
     }
 
-    MovePage(e,param) {
-      console.log(param);
-      // console.log(e);
-      // window.location.href = "/TodoPage/" + {param};
+    MovePage(e, props) {
+      window.location.href = "/TodoPage/" + `${props}`;
     }
    
     mapDaysToComponents = (Days, calendarMonthYear, selectedDayFormat ,fn = () => { }) => {
       const thisMonth = moment(calendarMonthYear);
-
       return Days.map((dayInfo, i) => {
         let className = "calBodyContentCell";
         if (!thisMonth.isSame(dayInfo.yearMonthDayFormat,'month')) {
@@ -127,7 +124,7 @@ class DateHeader extends Component {
             </label>
             <div>
               <CircleButton 
-                onClick={(e) => this.MovePage(e,this.props)} >
+                onDoubleClick={(e) => this.MovePage(e,this.props.selected)} >
                       <MdSearch />
               </CircleButton>
             </div>
@@ -138,7 +135,7 @@ class DateHeader extends Component {
     render() {
       return (
         <div className="calendar-week">
-          {this.mapDaysToComponents(this.Days(this.props.firstDayOfThisWeekformat,this.props.weekIndex),
+          {this.mapDaysToComponents(this.Days(this.props.firstDayOfThisWeekformat,this.props.Index),
           this.props.ymOfThisCalendar,
           this.props.selected,
           this.props.fn
@@ -161,8 +158,7 @@ class DateHeader extends Component {
       for (let i = 0; i < 6; i++) {
         _Weeks.push((
           <Week 
-            key={`calendar-week-${i}`} 
-            weekIndex={i}
+            key={i}
             ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
             firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7, 'd').format("YYYY-MM-DD")}
             selected={selected}
@@ -178,7 +174,6 @@ class DateHeader extends Component {
           <DateHeader />
           <CalBodyBlock>
             {this.Weeks(this.props.YM,this.props.selected,this.props.changeSelected)}
-            
           </CalBodyBlock>
         </div>
       )
