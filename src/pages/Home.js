@@ -39,7 +39,6 @@ export default class Home extends Component {
         this.setState({
             selected : clickedDate
         })
- 
         this.props.clickFn(clickedDate);
         
         if(moment(clickedDate).isBefore(this.state.calendarYM,'month')){

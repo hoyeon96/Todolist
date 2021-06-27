@@ -34,19 +34,12 @@ const CircleButton = styled.button`
   outline: none;
   display: none;  /* Button 초기에는 안보이게 */
 `;
+
 const DayBlock = styled.div`
-    &:hover {
-      ${CircleButton} {                  
-        /* 할일 item에 hover 시 Remove가 보이게 만들기 */
-          display: flex;
-      }
-    }
+    &:hover { ${CircleButton} { display: flex; }
 `;
 
 
-const MovePage = (e) => {
-  window.location.href = "/TodoPage/:"
-}
 
 const weekname = ["일", "월", "화", "수", "목", "금", "토"];
 class DateHeader extends Component {
@@ -90,7 +83,7 @@ class DateHeader extends Component {
    
       for (let i = 0; i < 7; i++) {
    
-        const Day = moment(firstDayFormat).add('d', i);
+        const Day = moment(firstDayFormat).add(i, 'd');
         _days.push({
           yearMonthDayFormat: Day.format("YYYY-MM-DD"),
           getDay: Day.format('D'),
@@ -102,12 +95,16 @@ class DateHeader extends Component {
       return _days;
     }
 
+    MovePage(e,param) {
+      console.log(param);
+      // console.log(e);
+      // window.location.href = "/TodoPage/" + {param};
+    }
    
     mapDaysToComponents = (Days, calendarMonthYear, selectedDayFormat ,fn = () => { }) => {
       const thisMonth = moment(calendarMonthYear);
 
       return Days.map((dayInfo, i) => {
-        console.log(dayInfo);
         let className = "calBodyContentCell";
         if (!thisMonth.isSame(dayInfo.yearMonthDayFormat,'month')) {
           className = "calBodyContentCell outdate";
@@ -116,30 +113,28 @@ class DateHeader extends Component {
         } else if (i === 6) {
           className = "calBodyContentCell date-sat";
         }
-
         if(moment(dayInfo.yearMonthDayFormat).isSame(selectedDayFormat,'day')){
           className = "calBodyContentCell selected";
         }
-        console.log(dayInfo.yearMonthDayFormat);
         return (
           <DayBlock 
-            className={"calendar-day " + className} 
-            key={`${dayInfo.weekIndex}-${i}-day`}
-            onClick={() => fn(dayInfo.yearMonthDayFormat)} >
+            className = {"calendar-day " + className} 
+            key = {`${dayInfo.yearMonthDayFormat}`}
+            onClick = {() => fn(dayInfo.yearMonthDayFormat)}
+             >
             <label className="calendar-day-label">
               {dayInfo.getDay}
             </label>
-            <CircleButton 
-            onClick={MovePage}
-            >
-                  <MdSearch />
-            </CircleButton>
+            <div>
+              <CircleButton 
+                onClick={(e) => this.MovePage(e,this.props)} >
+                      <MdSearch />
+              </CircleButton>
+            </div>
           </DayBlock>
         )
       })
     }
-  
-  
     render() {
       return (
         <div className="calendar-week">
@@ -152,15 +147,14 @@ class DateHeader extends Component {
       )
     }
   }
-
-
+  
   export default class Calendar extends Component {
 
     Weeks = (monthYear, selected, clickFn) => {
       const firstDayOfMonth = moment(monthYear).startOf('month');
       const firstDateOfMonth = firstDayOfMonth.get('d');
    
-      const firstDayOfWeek = firstDayOfMonth.clone().add('d', -firstDateOfMonth);
+      const firstDayOfWeek = firstDayOfMonth.clone().add(-firstDateOfMonth, 'd');
    
       const _Weeks = [];
    
@@ -170,7 +164,7 @@ class DateHeader extends Component {
             key={`calendar-week-${i}`} 
             weekIndex={i}
             ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
-            firstDayOfThisWeekformat={firstDayOfWeek.clone().add('d', i *7).format("YYYY-MM-DD")}
+            firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7, 'd').format("YYYY-MM-DD")}
             selected={selected}
             fn={clickFn} />
         ))

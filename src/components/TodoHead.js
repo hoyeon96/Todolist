@@ -11,6 +11,7 @@ const TodoHeadBlock = styled.div`
     padding-bottom : 24px;
     border-bottom : 1px solid #e9ecef;
     text-align : center;
+    align-items: center;
     h1 {
         margin : 0;
         font-size : 36px;
@@ -30,9 +31,12 @@ const TodoHeadBlock = styled.div`
 `;
 
 const ButtonBlock = styled.div`
-        padding: 24px;
-        font-size : 32px;
-        color: #20c997;
+    width: 32px;
+    height: 32px;
+    padding: 24px;
+    font-size: 32px;
+    color: #20c997;
+    cursor: pointer;
 `;
 
 function TodoHead(){
