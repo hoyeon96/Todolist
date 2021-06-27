@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Home } from '../pages';
+import Home from '../pages/Home';
 import { About } from '../pages';
 import { TodoPage } from '../pages';
 

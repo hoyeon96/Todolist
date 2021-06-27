@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
+import React, { Component } from 'react';
 import '../RCA.css';
+import styled from 'styled-components';
+import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
+ 
+const CalHeadBlock = styled.div`
+    width:100%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background-color: rgb(224, 215, 202);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
-
-function CalendarHeader() { 
-  
-    const [ month, setMonth ] = useState(moment());
-    const [ viewMonth, setViewMonth ] = useState(month.format('YYYY년 MM월'));
-    
-    return (
-      <div className="RCA-header-container">
-        <div className="RCA-header-buttons RCA-header-middle">
-          <AiFillCaretLeft 
-            className="move-button icon"
-            onClick={() => 
-                { setMonth(month.add(-1, 'months')); 
-                setViewMonth(month.format('YYYY년 MM월')); 
-                console.info(month) }
-            }
-          />
-        </div>
-        <div className="RCA-header-calendarYM RCA-header-middle">
-          { viewMonth }
-        </div>
-        <div className="calHeaderBtn calHeaderAfterBtn">
-          <AiFillCaretRight 
-            className="move-button icon"
-            onClick={() => { 
-                setMonth(month.add(1, 'months')); 
-                setViewMonth(month.format('YYYY년 MM월')); 
-                console.info(month) }
-            }
-          />
-        </div>
-      </div>
-    );
-  }
-  
-  export default CalendarHeader;
+export default class Header extends Component {
+    render() {
+        return (
+            <CalHeadBlock>
+                <div className="header-buttons">
+                    <AiFillCaretLeft 
+                        className="move-button icon"
+                        onClick={()=>{this.props.moveMonth(-1)}}
+                    />
+                </div>
+               <h2>
+                    {this.props.calendarYM}
+                </h2>
+                <div className="calHeaderBtn calHeaderAfterBtn">
+                    <AiFillCaretRight 
+                        className="move-button icon"
+                        onClick={()=>{this.props.moveMonth(1)}}
+                    />
+                </div>
+                <h3>
+                    {this.props.today}
+                </h3>
+            </CalHeadBlock>
+        )
+    }
+}
