@@ -17,9 +17,6 @@ const CircleButton = styled.button`
   cursor: pointer;
   width: 80px;
   height: 80px;
-  display: block;
-  align-items: center;
-  justify-content: center;
   font-size: 60px;
   position: absolute;
   left: 50%;

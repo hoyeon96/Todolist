@@ -1,3 +1,4 @@
+import React , { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import TodoTemplate from '../components/TodoTemplate';
 import TodoHead from '../components/TodoHead';
@@ -11,17 +12,25 @@ body{
 
 }
 `;
-const TodoPage = () => {
-  return (
-    <TodoProvider>
-      <Globalstyle />
-      <TodoTemplate>
-        <TodoHead />          
-        <TodoList />
-        <TodoCreate />
-      </TodoTemplate>
-    </TodoProvider>
-    );
-};
+
+class TodoPage extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
+  
+  render(){
+    return (
+      <TodoProvider>
+       <Globalstyle />
+       <TodoTemplate>
+          <TodoHead />          
+          <TodoList />
+          <TodoCreate />
+        </TodoTemplate>
+      </TodoProvider>
+    )
+  }
+}
 
 export default TodoPage;

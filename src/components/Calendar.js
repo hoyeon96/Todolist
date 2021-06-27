@@ -2,7 +2,7 @@ import React , { Component } from 'react';
 import moment from 'moment';
 import '../RCA.css';
 import styled, {css} from 'styled-components';
-import {MdAdd} from 'react-icons/md';
+import {MdSearch} from 'react-icons/md';
 
 const CalBodyBlock = styled.div`
     height: 100%;
@@ -12,48 +12,41 @@ const CalBodyBlock = styled.div`
     grid-template-rows: repeat(6, 1fr);
 `;
 const CircleButton = styled.button`
-  background: #38d9a9;
+  background: rgba(56,217,169,0.9);
   &:hover {
     background: #63e6be;
   }
-  &:active {
-    background: #20c997;
-  }
-
-  z-index: 5;
-  cursor: pointer;
-  width: 80px;
-  height: 80px;
-  display: block;
   align-items: center;
   justify-content: center;
-  font-size: 60px;
+  color: #dee2e6;
+  font-size: 24px;
+  cursor: pointer;
   position: absolute;
-  left: 50%;
-  bottom: 0px;
+  bottom: 44px;
+  left: 36px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
   transform: translate(-50%, 50%);
   color: white;
   border-radius: 50%;
   border: none;
   outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: 0.125s all ease-in;
-  ${props =>
-    props.open &&
-    css`
-      background: #ff6b6b;
-      &:hover {
-        background: #ff8787;
-      }
-      &:active {
-        background: #fa5252;
-      }
-      transform: translate(-50%, 50%) rotate(45deg);
-    `}
+  display: none;  /* Button 초기에는 안보이게 */
 `;
+const DayBlock = styled.div`
+    &:hover {
+      ${CircleButton} {                  
+        /* 할일 item에 hover 시 Remove가 보이게 만들기 */
+          display: flex;
+      }
+    }
+`;
+
+
+const MovePage = (e) => {
+  window.location.href = "/TodoPage/:"
+}
 
 const weekname = ["일", "월", "화", "수", "목", "금", "토"];
 class DateHeader extends Component {
@@ -90,6 +83,7 @@ class DateHeader extends Component {
   class Week extends Component {
  
     state = {}
+
    
     Days = (firstDayFormat, weekIndex) => {
       const _days = [];
@@ -113,7 +107,7 @@ class DateHeader extends Component {
       const thisMonth = moment(calendarMonthYear);
 
       return Days.map((dayInfo, i) => {
-   
+        console.log(dayInfo);
         let className = "calBodyContentCell";
         if (!thisMonth.isSame(dayInfo.yearMonthDayFormat,'month')) {
           className = "calBodyContentCell outdate";
@@ -126,16 +120,21 @@ class DateHeader extends Component {
         if(moment(dayInfo.yearMonthDayFormat).isSame(selectedDayFormat,'day')){
           className = "calBodyContentCell selected";
         }
-   
+        console.log(dayInfo.yearMonthDayFormat);
         return (
-          <div 
+          <DayBlock 
             className={"calendar-day " + className} 
             key={`${dayInfo.weekIndex}-${i}-day`}
             onClick={() => fn(dayInfo.yearMonthDayFormat)} >
             <label className="calendar-day-label">
               {dayInfo.getDay}
             </label>
-          </div>
+            <CircleButton 
+            onClick={MovePage}
+            >
+                  <MdSearch />
+            </CircleButton>
+          </DayBlock>
         )
       })
     }
@@ -185,6 +184,7 @@ class DateHeader extends Component {
           <DateHeader />
           <CalBodyBlock>
             {this.Weeks(this.props.YM,this.props.selected,this.props.changeSelected)}
+            
           </CalBodyBlock>
         </div>
       )

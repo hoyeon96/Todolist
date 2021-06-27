@@ -83,6 +83,10 @@
   flex-grow: 1;
   }
 
+.calendar-day {
+  border-right: .1px solid #e6e5e6;
+  border-bottom: .1px solid #e6e5e6;
+}
 
 .calendar-day-label{
     display: block;
@@ -98,4 +102,5 @@
 .selected label{
     font-size: 1.2rem;
     color: white;
+    /* background-color: rgb(49,50,50); */
 }

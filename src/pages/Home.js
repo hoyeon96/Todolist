@@ -16,7 +16,7 @@ export default class Home extends Component {
     
     state = {
         calendarYM : moment(),
-        today : moment(),
+        today: moment(),
         selected : moment().format("YYYY-MM-DD")
     }
 
